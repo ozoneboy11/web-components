@@ -1,0 +1,35 @@
+<template id="temp">
+  <input type='text'>
+</template>
+
+<script>
+  // text-field
+
+  // var shadow = document.querySelector('#temp').createShadowRoot();
+  // shadow.appendChild(document.querySelector('template').content);
+
+  var e = Object.create(HTMLElement.prototype);
+  e.createdCallback = function() {
+    const type = this.getAttribute('type');
+    console.log(type);
+    var root = this.createShadowRoot();
+
+    console.log(document.querySelector('#temp'));
+    var content = document.querySelector('#temp').content;
+    console.log(content);
+
+    var template = document.getElementById('#temp');
+    console.log(template);
+    var templateClone = document.importNode(template.content, true);
+    var root = this.createShadowRoot();
+    root.appendChild(templateClone);
+
+    var content = document.querySelector('template').content;
+    console.log(content);
+    var span = content.querySelector('span');
+    span.textContent = parseInt(span.textContent) + 1;
+    document.querySelector('#container').appendChild(
+        document.importNode(content, true));
+  };
+  document.registerElement('animation-form', {prototype: e});
+</script>
